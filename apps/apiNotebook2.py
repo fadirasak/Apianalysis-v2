@@ -104,19 +104,26 @@ def _(mo):
 @app.cell
 def _(data, mo, pl, slider):
     mo.md(rf"""
-    # API Methods Size Analysis
+# API Methods Size Analysis
 
-    ## {slider} 
+## {slider} 
 
-    ## API methods >= {slider.value[0]} MB : {data.group_by("ApiMethod").agg(
-        pl.col("MB").sum(),
-    ).filter(pl.col("MB").is_between(slider.value[0], slider.value[1])).select('ApiMethod').count().item()}
+## API methods >= {slider.value[0]} MB : {data.group_by("ApiMethod").agg(
+    pl.col("MB").sum(),
+).filter(pl.col("MB").is_between(slider.value[0], slider.value[1])).select('ApiMethod').count().item()} ({((data.group_by("ApiMethod").agg(
+    pl.col("MB").sum(),
+).filter(pl.col("MB").is_between(slider.value[0], slider.value[1])).select('ApiMethod').count().item())/data.group_by("ApiMethod").agg(
+    pl.col("MB").sum(),
+).select('ApiMethod').count().item())*100} %)
 
-    ##     API methods <= {slider.value[1]} MB : {data.group_by("ApiMethod").agg(
-        pl.col("MB").sum(),
-    ).filter((pl.col("MB")<=slider.value[0])|(pl.col("MB")>=slider.value[1])).select('ApiMethod').count().item()}
-
-    """).callout("success")
+##     API methods <= {slider.value[1]} MB : {data.group_by("ApiMethod").agg(
+    pl.col("MB").sum(),
+).filter((pl.col("MB")<=slider.value[0])|(pl.col("MB")>=slider.value[1])).select('ApiMethod').count().item()} ({(data.group_by("ApiMethod").agg(
+    pl.col("MB").sum(),
+).filter((pl.col("MB")<=slider.value[0])|(pl.col("MB")>=slider.value[1])).select('ApiMethod').count().item())/data.group_by("ApiMethod").agg(
+    pl.col("MB").sum(),
+).select('ApiMethod').count().item()*100} %)
+""").callout("success")
     return
 
 
