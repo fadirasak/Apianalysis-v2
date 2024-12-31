@@ -17,7 +17,7 @@ def _():
 @app.cell
 def _(pl):
     data = pl.read_csv(
-        r"https://github.com/fadirasak/Apianalysis-v2/blob/main/apps/October%20file%20with%20response%20size.csv",
+        r"https://raw.githubusercontent.com/fadirasak/Apianalysis-v2/refs/heads/main/apps/October%20file%20with%20response%20size.csv",
         infer_schema_length=1000000,
     ).with_columns((pl.col("MINResponseSize_KB") / 1024).alias("MB"),
                   
