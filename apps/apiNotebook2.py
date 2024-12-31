@@ -123,7 +123,7 @@ def _(data, mo, pl, slider):
 @app.cell
 def _(data, pl, px, slider):
     px.pie(
-        data.with_columns(
+        data.select(
             (
                 pl.when(pl.col("MB").is_between(slider.value[0], slider.value[1]))
                 .then(pl.lit(f"More Than {slider.value[0]} MB"))
