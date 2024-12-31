@@ -131,11 +131,7 @@ def _(data, mo, pl, slider):
 def _(data, pl, px, slider):
     px.pie(
         data.select(
-            (
-                pl.when(pl.col("MB").is_between(slider.value[0], slider.value[1]))
-                .then(pl.lit(f"> {slider.value[0]}"))
-                .otherwise(pl.lit(f"< {slider.value[1]}"))
-            ).alias("Size")
+            pl.col("MB").is_between(slider.value[0], slider.value[1]).alias("Size")
         ),
         names="Size",
         title="% of MB Size",
