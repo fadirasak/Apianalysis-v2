@@ -126,8 +126,8 @@ def _(data, pl, px, slider):
         data.select(
             (
                 pl.when(pl.col("MB").is_between(slider.value[0], slider.value[1]))
-                .then(pl.lit(f"More Than {slider.value[0]} MB"))
-                .otherwise(pl.lit(f"Less than {slider.value[1]} MB"))
+                .then(pl.lit(f"> {slider.value[0]}"))
+                .otherwise(pl.lit(f"< {slider.value[1]}"))
             ).alias("Size")
         ),
         names="Size",
